@@ -11,25 +11,26 @@ from django.db import models
 class CommentInfo(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=20)
-    username = models.CharField(db_column='userName', max_length=20)  # Field name made lowercase.
+    username = models.CharField(db_column='userName', unique=True, max_length=20)  # Field name made lowercase.
     userscore = models.CharField(db_column='userScore', max_length=20)  # Field name made lowercase.
     time = models.DateField(blank=True, null=True)
-    comment = models.CharField(unique=True, max_length=255)
+    comment = models.CharField(max_length=300)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'comment_info'
 
 
 class MovieAwards(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=20)
-    awardname = models.CharField(db_column='awardName', unique=True, max_length=20)  # Field name made lowercase.
+    awardname = models.CharField(db_column='awardName', max_length=20)  # Field name made lowercase.
     awardclass = models.CharField(db_column='awardClass', max_length=20)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'movie_awards'
+        unique_together = (('name', 'awardname', 'awardclass'),)
 
 
 class MovieInfo(models.Model):
@@ -43,19 +44,20 @@ class MovieInfo(models.Model):
     sumcomment = models.IntegerField(db_column='sumComment', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'movie_info'
 
 
 class MoviePlay(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=20)
-    moviesite = models.CharField(db_column='movieSite', unique=True, max_length=10)  # Field name made lowercase.
+    moviesite = models.CharField(db_column='movieSite', max_length=10)  # Field name made lowercase.
     movieurl = models.CharField(db_column='movieUrl', max_length=300)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'movie_play'
+        unique_together = (('name', 'moviesite'),)
 
 
 class MovieScore(models.Model):
@@ -68,5 +70,5 @@ class MovieScore(models.Model):
     onestarrate = models.FloatField(db_column='oneStarRate', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'movie_score'
