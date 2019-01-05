@@ -72,7 +72,7 @@
                     </font>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+                    <a href="{% url '[search]:content_page' movie.name %}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
                         <font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
                                 查看
@@ -81,10 +81,9 @@
                     </a>
                 </div>
                 <div class="mdl-card__menu">
-                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
-                        <i class="material-icons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分享</font></font></i>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </button>
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">share</i>
+                </button>
                 </div>
             </div>
             <div class="demo-card-wide mdl-card mdl-shadow--2dp" style=" width:512px; margin-right:10%; float:right; margin-bottom:20px">
@@ -110,15 +109,14 @@
                     </a>
                 </div>
                 <div class="mdl-card__menu">
-                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
-                        <i class="material-icons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分享</font></font></i>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </button>
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">share</i>
+                </button>
                 </div>
             </div>
 
             <div class="demo-card-wide mdl-card mdl-shadow--2dp" style=" width:512px; float:left; margin-left:10%; margin-bottom:30px">
-                <div class="mdl-card__title" style="height:176px; background: url('img/xji.jpg') center / cover;">
+                <div class="mdl-card__title" style="height:176px; background: url('{% static 'search/img/xji.jpg' %}') center / cover;">
                     <h2 class="mdl-card__title-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">欢迎</font></font></h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -140,10 +138,9 @@
                     </a>
                 </div>
                 <div class="mdl-card__menu">
-                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
-                        <i class="material-icons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分享</font></font></i>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </button>
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">share</i>
+                </button>
                 </div>
             </div>
             <div class="demo-card-wide mdl-card mdl-shadow--2dp" style=" width:512px; margin-right:10%; float:right; margin-bottom:30px">
@@ -169,10 +166,9 @@
                     </a>
                 </div>
                 <div class="mdl-card__menu">
-                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
-                        <i class="material-icons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分享</font></font></i>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </button>
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">share</i>
+                </button>
                 </div>
             </div>
 
@@ -192,21 +188,23 @@
 
     <div class="search">
         <button id="btn-search-close" class="btn btn--search-close" aria-label="Close search form"><svg class="icon icon--cross"><use xlink:href="#icon-cross"></use></svg></button>
-        <form class="search__form" action="">
+        <form class="search__form" action="{% url 'search:content_action' %}" method="post">
+            <!--  django中使用post请求时需加 来保证安全 不然会报错 -->
+            {% csrf_token %}
             <div class="search__form-inner">
-                <input class="search__input" name="search" type="search" placeholder="drones" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                <input class="search__input" name="search" type="search" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
             <span class="search__info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">按Enter键进行搜索或按ESC键关闭</font></font></span>
         </form>
         <div class="search__related">
             <div class="search__suggestion">
-                <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们可以建议吗？</font></font></h3>
-                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">#drone #funny #catgif #broken #lost #hilarious #good #red #blue #nono #why #yes #yesyes #aliens #green</font></font></p>
+                <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">any</font></font></h3>
+                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></p>
             </div>
         </div>
     </div><!-- /search -->
 
-    <script src="{% static 'hello2app/js/demo8.js' %}"></script><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png" width="20" height="20" alt="Google 翻译"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">原文</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">提供更好的翻译建议</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div>
+    <script src="{% static 'search/js/demo8.js' %}"></script><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png" width="20" height="20" alt="Google 翻译"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">原文</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">提供更好的翻译建议</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div>
 
 
     <div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div>

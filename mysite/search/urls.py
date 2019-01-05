@@ -17,6 +17,11 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+app_name = '[search]'  # 添加它才能在根目录urls.py include函数内输入第二个参数namespace
+
 urlpatterns = [
-    path('', views.index),
+    path('index/', views.index),
+    path(r'content/', views.content),
+    path(r'content/<movie_name>', views.content_url, name='content_page'),
+    path('index/search/', views.content_action, name='content_action'),
 ]
