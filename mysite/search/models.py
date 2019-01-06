@@ -16,6 +16,9 @@ class CommentInfo(models.Model):
     time = models.DateField(blank=True, null=True)
     comment = models.CharField(max_length=300)
 
+    def __str__(self):
+        return self.id
+
     class Meta:
         managed = False
         db_table = 'comment_info'
@@ -27,6 +30,8 @@ class MovieAwards(models.Model):
     awardname = models.CharField(db_column='awardName', max_length=20)  # Field name made lowercase.
     awardclass = models.CharField(db_column='awardClass', max_length=20)  # Field name made lowercase.
 
+    def __str__(self):
+        return self.name
     class Meta:
         managed = False
         db_table = 'movie_awards'
@@ -43,6 +48,8 @@ class MovieInfo(models.Model):
     score = models.FloatField(blank=True, null=True)
     sumcomment = models.IntegerField(db_column='sumComment', blank=True, null=True)  # Field name made lowercase.
 
+    def __str__(self):
+        return self.name
     class Meta:
         managed = False
         db_table = 'movie_info'
@@ -53,7 +60,8 @@ class MoviePlay(models.Model):
     name = models.CharField(max_length=20)
     moviesite = models.CharField(db_column='movieSite', max_length=10)  # Field name made lowercase.
     movieurl = models.CharField(db_column='movieUrl', max_length=300)  # Field name made lowercase.
-
+    def __str__(self):
+        return self.name
     class Meta:
         managed = False
         db_table = 'movie_play'
@@ -68,7 +76,8 @@ class MovieScore(models.Model):
     threestarrate = models.FloatField(db_column='threeStarRate', blank=True, null=True)  # Field name made lowercase.
     twostarrate = models.FloatField(db_column='twoStarRate', blank=True, null=True)  # Field name made lowercase.
     onestarrate = models.FloatField(db_column='oneStarRate', blank=True, null=True)  # Field name made lowercase.
-
+    def __str__(self):
+        return self.name
     class Meta:
         managed = False
         db_table = 'movie_score'

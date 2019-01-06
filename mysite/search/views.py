@@ -3,11 +3,18 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 from . import models
 from getData import spiderMain
+from getData import createClound
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 # Create your views here.
 def index(request):
-    movie = models.MovieInfo.objects.get(id=1)   #从数据库获取数据
-    return render(request, 'index.html', {'movie':movie})
+    xjcy = models.MovieInfo.objects.get(id=1)   #从数据库获取数据
+    ls = models.MovieInfo.objects.get(id=4)
+    dkek = models.MovieInfo.objects.get(id=6)
+    dmkj = models.MovieInfo.objects.get(id=18)
+    return render(request, 'index.html', {'xjcy':xjcy, 'ls':ls, 'dkek':dkek, 'dmkj':dmkj})
 
 def content(request):
     return render(request, 'content.html')
@@ -35,6 +42,12 @@ def search_data(movie_name):
     movie_score = models.MovieScore.objects.get(name=movie_name)
     # comment_info = models.CommentInfo.objects.filter(name=movie_name)
     comment_info = models.CommentInfo.objects.all().filter(name=movie_name)
+
+    with open('C:/Users/SiChengZ/OneDrive/桌面/django/mysite/getData/text2', 'w') as f:
+        for comment in comment_info:
+            f.write(comment.comment)
+
+    createClound.ciyun()
     # 计算优质用户评价
     score = {'力荐':0, '推荐':0, '还行':0, '较差':0, '很差':0}
     sum = len(comment_info)
@@ -47,3 +60,15 @@ def search_data(movie_name):
         score[a] = int(score[a] * 100)
     movie_play = models.MoviePlay.objects.all().filter(name=movie_name)
     return movie_info, movie_score, movie_play, score
+
+def send(request):
+    content = request.POST.get('content')
+    send_mail(
+        '测试',
+        content,
+        'sichengz2@163.com',
+        ['651932401@qq.com'],
+        fail_silently=False,
+    )
+    return HttpResponse(content)
+

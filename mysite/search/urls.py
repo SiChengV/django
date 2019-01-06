@@ -24,4 +24,5 @@ urlpatterns = [
     path(r'content/', views.content),
     path(r'content/<movie_name>', views.content_url, name='content_page'),
     path('index/search/', views.content_action, name='content_action'),
+    path('mail',views.send, name='send_email'),
 ]

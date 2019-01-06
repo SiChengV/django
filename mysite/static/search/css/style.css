@@ -177,7 +177,7 @@ ul.about-list li span{
 
 /* Team Section */
 #tf-team{
-	background: url(../img/03.jpg);
+	background: url(../img/ciyun.png);
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -562,7 +562,8 @@ nav#footer p{
 	color: #8c8c8c;
 	transition: all 0.5s;
 }
-#footer i.fa:hover{
+#footer i.fa:hover {
 	background: #FCAC45;
 	border-color: #FCAC45;
 	color: #ffffff;
+}

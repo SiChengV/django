@@ -242,11 +242,11 @@
                         <small><em>信息将发送到我的邮箱，看到即回！</em></small>
                     </div>
 
-                    <form>
-
+                    <form action="{% url '[search]:send_email' %}" method="post">
+                    {% csrf_token %}
                         <div class="form-group">
                             <label for="exampleInputEmail1">信息</label>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea name="content" class="form-control" rows="3"></textarea>
                         </div>
 
                         <button type="submit" class="btn tf-btn btn-default">提交</button>
