@@ -21,26 +21,28 @@ def content(request):
 
 def content_url(request, movie_name):
     # 将点击页面的movie_name传到这里
-    movie_info, movie_score, movie_play, score = search_data(movie_name)
-    return render(request, 'content.html',{'movie_info':movie_info, 'movie_score':movie_score, 'score':score, 'movie_play':movie_play})
+    movie_info, movie_score, movie_play, score ,movie_awards = search_data(movie_name)
+    return render(request, 'content.html',{'movie_info':movie_info, 'movie_score':movie_score, 'score':score, 'movie_play':movie_play, 'movie_awards':movie_awards})
 
 def content_action(request):
     search = request.POST.get('search', 'faild')
     try:
         movie_info = models.MovieInfo.objects.get(name=search)
-        movie_info, movie_score, movie_play, score = search_data(search)
+        movie_info, movie_score, movie_play, score ,movie_awards= search_data(search)
     except ObjectDoesNotExist:
         movie_name = spiderMain.main(search)
-        movie_info, movie_score, movie_play, score = search_data(movie_name)
+        movie_info, movie_score, movie_play, score ,movie_awards= search_data(movie_name)
 
-    return render(request, 'content.html',{'movie_info':movie_info, 'movie_score':movie_score, 'score':score, 'movie_play':movie_play})
+    return render(request, 'content.html',{'movie_info':movie_info, 'movie_score':movie_score, 'score':score, 'movie_play':movie_play, 'movie_awards':movie_awards})
 
 
 def search_data(movie_name):
     # 根据电影名字返回数据
+
     movie_info = models.MovieInfo.objects.get(name=movie_name)
     movie_score = models.MovieScore.objects.get(name=movie_name)
     # comment_info = models.CommentInfo.objects.filter(name=movie_name)
+    movie_awards = models.MovieAwards.objects.all().filter(name=movie_name)
     comment_info = models.CommentInfo.objects.all().filter(name=movie_name)
 
     with open('C:/Users/SiChengZ/OneDrive/桌面/django/mysite/getData/text2', 'w') as f:
@@ -59,15 +61,15 @@ def search_data(movie_name):
         score[a] /= sum
         score[a] = int(score[a] * 100)
     movie_play = models.MoviePlay.objects.all().filter(name=movie_name)
-    return movie_info, movie_score, movie_play, score
+    return movie_info, movie_score, movie_play, score, movie_awards
 
 def send(request):
     content = request.POST.get('content')
     send_mail(
-        '测试',
+        '反馈',
         content,
         'sichengz2@163.com',
-        ['651932401@qq.com'],
+        ['609686536@qq.com'],
         fail_silently=False,
     )
     return HttpResponse(content)
